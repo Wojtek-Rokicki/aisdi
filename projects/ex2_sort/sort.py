@@ -1,6 +1,7 @@
+#!/bin/python3
 import time
-import sys as sys
-
+import sys
+import gc
 from matplotlib import pyplot as plt
 
 limit = 10000
@@ -118,12 +119,13 @@ def merge_sort(arr):
 
 
 def calculate_time(function, unsorted_list):
+    gc_old = gc.isenabled() # garbage collector state
+    gc.disable() # disable garbage collector before measuring execution times
     start = time.process_time()
-    # wylaczyc garbage collector TODO
     function(unsorted_list)
-    # wlaczyc garbage collector TODO
     end = time.process_time()
     print(f'Time for {function.__name__}: {end-start}')
+    if gc_old: gc.enable() # restore garbage collector initial state
     return end-start
 
 
@@ -138,12 +140,21 @@ def list_generator():
         unsorted_list_2 = readFile("pan-tadeusz.txt", i)
         unsorted_list_3 = readFile("pan-tadeusz.txt", i)
         unsorted_list_4 = readFile("pan-tadeusz.txt", i)
-        #qtime.append(calculate_time(quick_sort, unsorted_list_1))
-        #mtime.append(calculate_time(merge_sort, unsorted_list_3))
-        #stime.append(calculate_time(selection_sort, unsorted_list_4))
+        qtime.append(calculate_time(quick_sort, unsorted_list_1))
+        mtime.append(calculate_time(merge_sort, unsorted_list_3))
+        stime.append(calculate_time(selection_sort, unsorted_list_4))
         btime.append(calculate_time(bubble_sort, unsorted_list_2))
 
     plt.plot(n_range, btime)
+    plt.plot(n_range, stime)
+    plt.plot(n_range, mtime)
+    plt.plot(n_range, qtime)
+
+    # plt.legend(["Merge sort", "Quick sort"])
+    plt.legend(["Bubble sort", "Selection sort", "Merge sort", "Quick sort"])
+    plt.xlabel("Number of words to sort")
+    plt.ylabel("Time execution in seconds")
+
     plt.show()
 
 
