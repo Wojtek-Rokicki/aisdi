@@ -123,17 +123,17 @@ if __name__ == "__main__":
 
         print("n = ", n)
 
-        # start = time.process_time()
-        # bubble_sort(words_list[0:n])
-        # stop = time.process_time()
-        # bs_times.append(stop - start)
-        # print('Time execution in seconds for "bubble sort":', bs_times[-1])
+        start = time.process_time()
+        bubble_sort(words_list[0:n])
+        stop = time.process_time()
+        bs_times.append(stop - start)
+        print('Time execution in seconds for "bubble sort":', bs_times[-1])
 
-        # start = time.process_time()
-        # selection_sort(words_list[0:n])
-        # stop = time.process_time()
-        # ss_times.append(stop - start)
-        # print('Time execution in seconds for "selection sort":', ss_times[-1])
+        start = time.process_time()
+        selection_sort(words_list[0:n])
+        stop = time.process_time()
+        ss_times.append(stop - start)
+        print('Time execution in seconds for "selection sort":', ss_times[-1])
 
         start = time.process_time()
         m = merge_sort(words_list[0:n])
