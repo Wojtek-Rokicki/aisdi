@@ -77,29 +77,28 @@ if __name__ == "__main__":
     if gc_old: gc.enable() # restore garbage collector initial state
 
 
-    f = plt.figure(1)
+    plt.figure(1)
     plt.plot(number_of_nodes, bst_creating_time)
     plt.plot(number_of_nodes, avl_creating_time)
     plt.title("Tworzenie drzewa")
     plt.legend(["BST", "AVL"])
     plt.xlabel("Liczba elementów")
     plt.ylabel("Czas")
-    f.show()
 
-    g = plt.figure(2)
+    plt.figure(2)
     plt.plot(number_of_nodes, bst_searching_time)
     plt.plot(number_of_nodes, avl_searching_time)
     plt.title("Szukanie elementów")
     plt.legend(["BST", "AVL"])
     plt.xlabel("Liczba elementów")
     plt.ylabel("Czas")
-    g.show()
 
-    h = plt.figure(3)
+    plt.figure(3)
     plt.plot(number_of_nodes, bst_deleting_time)
     plt.plot(number_of_nodes, avl_deleting_time)
     plt.title("Usuwanie elementów")
     plt.legend(["BST", "AVL"])
     plt.xlabel("Liczba elementów")
     plt.ylabel("Czas")
-    h.show()
+    
+    plt.show()

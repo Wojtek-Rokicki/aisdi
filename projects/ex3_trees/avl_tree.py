@@ -12,17 +12,17 @@ import gc
              1                    1                         1                       1
            2                    2                             2                       2
          3                        3                             3                   3
-
+        rotate right         rotate left             rotate left             rotate right
              2                     1                        2                       1
           3     1                3                       1     3                       3
                                2                                                          2
-
+                             rotate right                                    rotate left
                                   3                                                  3
                                 2    1                                            1     2
 
 """
 
-
+# węzeł który posiada referencję do dzieci i rodzica
 class Node:
     def __init__(self, data, parent=None):
         self.data = data
@@ -31,7 +31,7 @@ class Node:
         self.left = None
         self.right = None
 
-
+# trzyma roota - węzeł w korzeniu
 class AVL:
     def __init__(self):
         self.__root = None
@@ -68,7 +68,7 @@ class AVL:
             else:
                 node.left = Node(data, node)
                 # if child node left doesnt exist add there + check if there is any violation
-                self.__violation_handler(node.left)
+                self.__violation_handler(node.left) # sprawdzanie współczynnika balansu i ewentualna naprawa
         if data > node.data:
             if node.right:
                 self.__insert_data(data, node.right)    #
@@ -78,13 +78,13 @@ class AVL:
 
     def __violation_handler(self, node):
         while node:  # while the node is not a None.
-            node.height = max(self.__calculate_height(node.left), self.__calculate_height(node.right)) + 1
+            node.height = max(self.__calculate_height(node.left), self.__calculate_height(node.right)) + 1 # uzupełnienie wartości wysokości
             self.__violation_fix(node)
             node = node.parent  # to traverse up to the root node
 
     def __violation_fix(self, node):
         # left left heavy
-        if self.__balance_factor(node) > 1: # height diff between children (left - right)
+        if self.__balance_factor(node) > 1: # height diff between children (left - right) # współczynnik balansu
             # left right heavy
             if self.__balance_factor(node.left) < -1:  # avoid the infinite loop
                 self.__rotate_left(node.left)
@@ -92,7 +92,7 @@ class AVL:
         # right right heavy
         if self.__balance_factor(node) < -1:
             # right left heavy
-            if self.__balance_factor(node.right) > 0:  # avoid the infinite loop
+            if self.__balance_factor(node.right) > 0:  # avoid the infinite loop # TODO
                 self.__rotate_right(node.right)
             self.__rotate_left(node)
 
@@ -262,7 +262,7 @@ class AVL:
             return False
         except TypeError:
             return "Incorrect Type!"
-
+    # TODO: print function
 
 def list_generator(n, d):
     return random.sample(range(1, d), n)
@@ -270,25 +270,25 @@ def list_generator(n, d):
 
 if __name__ == "__main__":
     tree = AVL()
-    data_list = list_generator(100000, 300000)
+    # data_list = list_generator(100000, 300000)
 
-    start = time.process_time()
-    for numb in data_list:
-        tree.insert(numb)
-    stop = time.process_time()
-    print(f'czas stworzenia drzewa: {stop - start}')
+    # start = time.process_time()
+    # for numb in data_list:
+    #     tree.insert(numb)
+    # stop = time.process_time()
+    # print(f'czas stworzenia drzewa: {stop - start}')
 
-    n = 1000
-    start = time.process_time()
-    for numb in data_list[:n]:
-        tree.find(numb)
-    stop = time.process_time()
-    print(f'czas wyszukania {n} elementów drzewa: {stop - start}')
+    # n = 1000
+    # start = time.process_time()
+    # for numb in data_list[:n]:
+    #     tree.find(numb)
+    # stop = time.process_time()
+    # print(f'czas wyszukania {n} elementów drzewa: {stop - start}')
 
-    start = time.process_time()
-    for numb in data_list[:n]:
-        tree.remove(numb)
-    stop = time.process_time()
-    print(f'czas usuwania {n} elementów drzewa: {stop - start}')
+    # start = time.process_time()
+    # for numb in data_list[:n]:
+    #     tree.remove(numb)
+    # stop = time.process_time()
+    # print(f'czas usuwania {n} elementów drzewa: {stop - start}')
 
     #tree.traverse()

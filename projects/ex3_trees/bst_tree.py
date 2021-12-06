@@ -10,14 +10,18 @@ import gc
 
 from matplotlib import pyplot as plt
 
+# TODO: fix polish comments
+
 class BST:
-    '''Binary Search Tree Structure'''
+    '''Binary Search Tree Structure
+        obiekt klasy bst reprezentuje węzeł wraz z powiązaniem do dzieci
+    '''
     def __init__(self, key = None, val = None):
         self.right = None
         self.left = None
         self.key = key
         self.val = val
-        self.size = 1
+        self.size = 1 # TODO
 
     def __str__(self):
         print("TBD")
@@ -103,42 +107,14 @@ def list_generator(min_val, max_val, n):
 
 if __name__ == "__main__":
     
-    number_of_nodes = range(1000, 10001, 1000)
+    binary_tree = BST(5)
 
-    min_val = 1
-    max_val = 1000
+    # TODO generating list with sampling (random.sample(range(1, d), n))
+    # inserting numbers in loop
+    binary_tree.insert(6)
+    binary_tree.insert(1)
+    binary_tree.insert(3)
+    binary_tree.insert(8)
+    binary_tree.insert(10)
 
-    creating_time = []
-    searching_time = []
-    deleting_time = []
-
-    gc_old = gc.isenabled() # garbage collector state
-    gc.disable() # disable garbage collector before measuring execution times
-
-    for i in number_of_nodes:
-        tree = BST()
-
-        # keys_list = list_generator(min_val, max_val, i)
-        keys_list = list_generator(min_val, i, i)
-        start = time.process_time()
-        for j in keys_list:
-            tree.insert(j)
-        stop = time.process_time()
-        creating_time.append(stop-start)
-        print(f'Czas tworzenia {i} elementów drzewa: {creating_time[-1]}')
-
-        start = time.process_time()
-        for j in keys_list:
-            tree.search(j)
-        stop = time.process_time()
-        searching_time.append(stop-start)
-        print(f'Czas wyszukiwania {i} elementów drzewa: {searching_time[-1]}')
-
-        start = time.process_time()
-        for j in keys_list:
-            tree.delete(j)
-        stop = time.process_time()
-        deleting_time.append(stop-start)
-        print(f'Czas usuwania {i} elementów drzewa: {deleting_time[-1]}')
-
-    if gc_old: gc.enable() # restore garbage collector initial state
+    binary_tree.print()
